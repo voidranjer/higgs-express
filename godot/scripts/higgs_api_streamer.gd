@@ -9,7 +9,7 @@ extends Node2D
 #const TTS_API_URL = "http://localhost:8000/v1/audio/speech"
 
 # The host and port are derived from the URL for HttpClient.
-const TTS_HOST = "localhost"
+const TTS_HOST = "34.130.17.213"
 const TTS_PORT = 443
 const TTS_PATH = "/higgs"
 
