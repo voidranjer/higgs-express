@@ -1,9 +1,11 @@
 # Godot 4+ specific ignores
-.godot/
-/android/
+godot/.godot/
+godot/imported/
+godot/import/
+godot/android/
 
 .DS_Store
-output/
+*.pem
 
 # Node
 logs

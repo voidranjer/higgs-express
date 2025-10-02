@@ -3,7 +3,7 @@ extends Node
 
 # Constants
 # const LLM_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
-const LLM_API_URL = "http://localhost:3000/llm"
+const LLM_API_URL = "https://localhost/llm"
 const LLM_API_KEY = "<YOUR API KEY HERE>"
 
 # Child nodes

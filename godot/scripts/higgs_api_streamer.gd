@@ -10,7 +10,7 @@ extends Node2D
 
 # The host and port are derived from the URL for HttpClient.
 const TTS_HOST = "localhost"
-const TTS_PORT = 3000
+const TTS_PORT = 443
 const TTS_PATH = "/higgs"
 
 # The HttpClient is used for low-level, non-blocking network communication.
@@ -129,7 +129,8 @@ func speak(text_to_speak: String, voice: String):
 	
 	# 2. Make the HTTP Request using HttpClient
 	print("DEBUG: Connecting to host ", TTS_HOST, ":", TTS_PORT)
-	var error = http_client.connect_to_host(TTS_HOST, TTS_PORT)
+	var tls_options = TLSOptions.client_unsafe()
+	var error = http_client.connect_to_host(TTS_HOST, TTS_PORT, tls_options)
 	if error != OK:
 		print_rich("[color=red]Could not connect to host.[/color]")
 		_cleanup_player()

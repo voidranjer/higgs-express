@@ -3,12 +3,14 @@ import axios from 'axios';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import https from 'https';
+import fs from 'fs';
 
 // Load environment variables from .env file
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 443;
 
 const GOOGLE_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 const HIGGS_API_URL = 'http://45.67.213.138:20023/v1/audio/speech';
@@ -89,7 +91,12 @@ app.post('/higgs', async (req: Request, res: Response) => {
 });
 
 
-// --- Start Server ---
-app.listen(PORT, () => {
-  console.log(`✅ Server is running at http://localhost:${PORT}`);
+
+const options = {
+  key: fs.readFileSync(path.join(__dirname, '../key.pem')),   // Path to your key
+  cert: fs.readFileSync(path.join(__dirname, '../cert.pem')), // Path to your certificate
+};
+
+https.createServer(options, app).listen(PORT, () => {
+  console.log(`✅ Server is running at https://0.0.0.0:${PORT}`);
 });
