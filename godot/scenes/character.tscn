@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://db15o7kcb4aes"]
+
+[ext_resource type="Script" uid="uid://bbyk0mhp4xkjm" path="res://scripts/character.gd" id="1_f6hls"]
+[ext_resource type="PackedScene" uid="uid://bc4ff8vrbc6xp" path="res://scenes/text_box.tscn" id="3_r8khs"]
+[ext_resource type="PackedScene" uid="uid://ds2p31sjdcnqh" path="res://scenes/higgs_audio_streamer.tscn" id="4_dp8ca"]
+[ext_resource type="Texture2D" uid="uid://b4olmj5t4yeoi" path="res://assets/sprites/chatbubble.png" id="5_dp8ca"]
+[ext_resource type="PackedScene" uid="uid://3c5rhmgfe084" path="res://scenes/llm_api.tscn" id="6_twevu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f6hls"]
+font_size = 24
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvvuw"]
+size = Vector2(100, 138)
+
+[node name="Character" type="Node2D" groups=["interactables"]]
+script = ExtResource("1_f6hls")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -74.0
+offset_top = -113.0
+offset_right = 80.0
+offset_bottom = -79.0
+text = "'E' to interact"
+label_settings = SubResource("LabelSettings_f6hls")
+horizontal_alignment = 1
+
+[node name="InteractionArea" type="Area2D" parent="." groups=["interactables"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_gvvuw")
+
+[node name="TextBox" parent="." instance=ExtResource("3_r8khs")]
+offset_left = -200.0
+offset_top = -221.0
+offset_right = 208.0
+offset_bottom = -73.0
+
+[node name="LlmApi" parent="." instance=ExtResource("6_twevu")]
+
+[node name="HiggsAudioStreamer" parent="." instance=ExtResource("4_dp8ca")]
+
+[node name="ChatBubble" type="Sprite2D" parent="."]
+position = Vector2(75, -45.000004)
+scale = Vector2(0.168, 0.168)
+texture = ExtResource("5_dp8ca")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://g7xscxn5bonb"]
+
+[ext_resource type="Script" uid="uid://bwe7x2hrc3w7g" path="res://scripts/audio.gd" id="1_6n3bj"]
+
+[node name="Audio" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_6n3bj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Connect"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

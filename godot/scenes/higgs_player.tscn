@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bav7u3h2clwd0"]
+
+[ext_resource type="Script" uid="uid://tnasmy80tfnt" path="res://scripts/higgs_player.gd" id="1_iinfs"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_iinfs"]
+mix_rate = 24000.0
+
+[node name="HiggsPlayer" type="AudioStreamPlayer2D"]
+stream = SubResource("AudioStreamGenerator_iinfs")
+max_distance = 250.0
+bus = &"Character Dialogue"
+script = ExtResource("1_iinfs")

@@ -1,0 +1,26 @@
+{
+  "peter": {
+	"audio_file": "peter.wav",
+	"transcript": ""
+  },
+  "buster": {
+	"audio_file": "buster.wav",
+	"transcript": ""
+  },
+  "emmanuel": {
+	"audio_file": "emmanuel.wav",
+	"transcript": ""
+  },
+  "morgan": {
+	"audio_file": "morgan.wav",
+	"transcript": ""
+  },
+  "luthen": {
+	"audio_file": "luthen.wav",
+	"transcript": ""
+  },
+  "walter": {
+	"audio_file": "walter.wav",
+	"transcript": ""
+  }
+}

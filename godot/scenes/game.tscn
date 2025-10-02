@@ -1,0 +1,150 @@
+[gd_scene load_steps=20 format=3 uid="uid://cnoslt5pdbbxh"]
+
+[ext_resource type="Texture2D" uid="uid://clgssw63i0w0g" path="res://assets/sprites/return_onewaytrip_tileset.png" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://qdusysud1o66" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://be5u4kapecap6" path="res://assets/sprites/luthen.png" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://db15o7kcb4aes" path="res://scenes/character.tscn" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://b1npqqv2xctkk" path="res://assets/sprites/walter.png" id="5_p57ef"]
+[ext_resource type="Texture2D" uid="uid://i6184sk62unf" path="res://assets/sprites/morgan.png" id="6_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://xopuywx3wdhy" path="res://assets/sprites/peter.png" id="7_gee14"]
+[ext_resource type="PackedScene" uid="uid://b5aam6i2128es" path="res://scenes/ui.tscn" id="8_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://cabd5snswjot7" path="res://assets/sprites/buster.png" id="8_vtaks"]
+[ext_resource type="Texture2D" uid="uid://d06eprapkfb3t" path="res://assets/sprites/emmanuel.png" id="9_vtaks"]
+[ext_resource type="Texture2D" uid="uid://dapb3r6q6a7sm" path="res://assets/sprites/game_over_good.png" id="11_kvpfn"]
+[ext_resource type="Script" uid="uid://i1tv2n1uofhy" path="res://scripts/good_ending_cutscene.gd" id="12_dinhu"]
+[ext_resource type="Texture2D" uid="uid://cyyled2oebuti" path="res://assets/sprites/game_over_bad.png" id="13_kvuet"]
+[ext_resource type="Script" uid="uid://d1iawb86n56cx" path="res://scripts/bad_ending_cutscene.gd" id="14_trtic"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
+texture = ExtResource("1_lbhrr")
+texture_region_size = Vector2i(25, 25)
+0:0/size_in_atlas = Vector2i(40, 8)
+0:0/0 = 0
+0:8/size_in_atlas = Vector2i(40, 8)
+0:8/0 = 0
+0:16/size_in_atlas = Vector2i(40, 7)
+0:16/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_p57ef"]
+tile_size = Vector2i(25, 25)
+sources/7 = SubResource("TileSetAtlasSource_iywne")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gee14"]
+distance = -23.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vtaks"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0tnpc"]
+normal = Vector2(-1, 0)
+distance = 1.0
+
+[node name="Game" type="Node2D"]
+
+[node name="TileMapLayers" type="Node" parent="."]
+
+[node name="Background" type="TileMapLayer" parent="TileMapLayers"]
+z_index = -1
+position = Vector2(2, 16)
+tile_map_data = PackedByteArray(0, 0, 4, 0, 254, 255, 1, 0, 19, 0, 17, 0, 0, 0, 0, 0, 255, 255, 4, 0, 26, 0, 10, 0, 0, 0, 8, 0, 255, 255, 4, 0, 16, 0, 10, 0, 0, 0, 18, 0, 253, 255, 7, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_p57ef")
+
+[node name="Bounds" type="StaticBody2D" parent="TileMapLayers"]
+
+[node name="Floor" type="CollisionShape2D" parent="TileMapLayers/Bounds"]
+position = Vector2(-1, 4)
+shape = SubResource("WorldBoundaryShape2D_gee14")
+
+[node name="Left" type="CollisionShape2D" parent="TileMapLayers/Bounds"]
+position = Vector2(-17, -1)
+shape = SubResource("WorldBoundaryShape2D_vtaks")
+
+[node name="Right" type="CollisionShape2D" parent="TileMapLayers/Bounds"]
+position = Vector2(961, -25)
+shape = SubResource("WorldBoundaryShape2D_0tnpc")
+
+[node name="UI" parent="." instance=ExtResource("8_0tnpc")]
+
+[node name="Characters" type="Node" parent="."]
+
+[node name="Luthen" parent="Characters" instance=ExtResource("5_iywne")]
+position = Vector2(375, -3)
+scale = Vector2(0.5, 0.5)
+character_name = "luthen"
+
+[node name="Sprite2D" type="Sprite2D" parent="Characters/Luthen"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_iywne")
+
+[node name="Walter" parent="Characters" instance=ExtResource("5_iywne")]
+position = Vector2(459, -9)
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Characters/Walter"]
+position = Vector2(0, 6)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_p57ef")
+
+[node name="Morgan" parent="Characters" instance=ExtResource("5_iywne")]
+position = Vector2(289, -3)
+scale = Vector2(0.5, 0.5)
+character_name = "morgan"
+
+[node name="Sprite2D" type="Sprite2D" parent="Characters/Morgan"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_u5sy4")
+
+[node name="Peter" parent="Characters" instance=ExtResource("5_iywne")]
+position = Vector2(541, -5)
+scale = Vector2(0.5, 0.5)
+character_name = "peter"
+
+[node name="Sprite2D" type="Sprite2D" parent="Characters/Peter"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("7_gee14")
+
+[node name="Buster" parent="Characters" instance=ExtResource("5_iywne")]
+position = Vector2(624, -4)
+scale = Vector2(0.5, 0.5)
+character_name = "buster"
+
+[node name="Sprite2D" type="Sprite2D" parent="Characters/Buster"]
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("8_vtaks")
+
+[node name="Emmanuel" parent="Characters" instance=ExtResource("5_iywne")]
+position = Vector2(704, -4)
+scale = Vector2(0.5, 0.5)
+character_name = "emmanuel"
+
+[node name="Sprite2D" type="Sprite2D" parent="Characters/Emmanuel"]
+position = Vector2(-1.9999999, -13.999999)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_vtaks")
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+z_index = 5
+position = Vector2(223, 20)
+scale = Vector2(2, 2)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-0.32699585, -1.2114563)
+zoom = Vector2(4, 4)
+limit_left = -35
+limit_top = -140
+limit_right = 960
+limit_bottom = 35
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="GoodEndingCutscene" type="Sprite2D" parent="Player"]
+position = Vector2(0.5, -37)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("11_kvpfn")
+script = ExtResource("12_dinhu")
+
+[node name="BadEndingCutscene" type="Sprite2D" parent="Player"]
+position = Vector2(0.5, -37)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("13_kvuet")
+script = ExtResource("14_trtic")

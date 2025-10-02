@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://3c5rhmgfe084"]
+
+[ext_resource type="Script" uid="uid://ctdlo02cl5kio" path="res://scripts/llm_api.gd" id="1_ldltu"]
+
+[node name="LlmApi" type="Node"]
+script = ExtResource("1_ldltu")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

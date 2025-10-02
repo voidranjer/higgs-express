@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b5aam6i2128es"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="FullRectControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="FullRectControl"]
+layout_mode = 0
+offset_left = 727.0
+offset_top = 11.0
+offset_right = 1143.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 30
+text = "Murder on the Higgs Express
+v0.0.1 (alpha)"
+horizontal_alignment = 2
