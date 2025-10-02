@@ -1,3 +1,7 @@
 ```shell
 openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes
 ```
+
+```shell
+sudo env "PATH=$PATH" npm run dev
+```
