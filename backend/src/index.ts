@@ -35,15 +35,64 @@ const prepareGoogleProxy = (req: Request, res: Response, next: NextFunction) => 
 
 app.post('/llm', prepareGoogleProxy, async (req: Request, res: Response) => {
   console.log('➡️  Received new request for /llm');
+  
+  const timestamp = new Date().toISOString();
+  const logEntry = {
+    timestamp,
+    request: {
+      headers: req.headers,
+      body: req.body
+    },
+    response: null as any,
+    error: null as any
+  };
+
   try {
     const response = await axios.post(
       GOOGLE_API_URL,
       req.body,
       { headers: res.locals.proxyHeaders }
     );
+    
+    // Log the response
+    logEntry.response = {
+      status: response.status,
+      headers: response.headers,
+      body: response.data
+    };
+    
+    // Write to log file
+    const logPath = path.join(__dirname, '../logs');
+    if (!fs.existsSync(logPath)) {
+      fs.mkdirSync(logPath, { recursive: true });
+    }
+    
+    const logFile = path.join(logPath, `llm-${new Date().toISOString().split('T')[0]}.log`);
+    fs.appendFileSync(logFile, JSON.stringify(logEntry, null, 2) + '\n---\n');
+    
     res.status(response.status).json(response.data);
   } catch (error) {
-    console.error('❌ Error from Google API:', error.response?.data || error.message);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('❌ Error from Google API:', axios.isAxiosError(error) ? error.response?.data : errorMessage);
+    
+    // Log the error
+    logEntry.error = {
+      message: errorMessage,
+      response: axios.isAxiosError(error) && error.response ? {
+        status: error.response.status,
+        data: error.response.data
+      } : null
+    };
+    
+    // Write error to log file
+    const logPath = path.join(__dirname, '../logs');
+    if (!fs.existsSync(logPath)) {
+      fs.mkdirSync(logPath, { recursive: true });
+    }
+    
+    const logFile = path.join(logPath, `llm-${new Date().toISOString().split('T')[0]}.log`);
+    fs.appendFileSync(logFile, JSON.stringify(logEntry, null, 2) + '\n---\n');
+    
     if (axios.isAxiosError(error) && error.response) {
       res.status(error.response.status).json(error.response.data);
     } else {
@@ -76,7 +125,8 @@ app.post('/higgs', async (req: Request, res: Response) => {
     response.data.pipe(res);
 
   } catch (error) {
-    console.error('❌ Error from Higgs API:', error.response?.data || error.message);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('❌ Error from Higgs API:', axios.isAxiosError(error) ? error.response?.data : errorMessage);
     if (axios.isAxiosError(error) && error.response) {
       // If the error response is a stream, we can't easily read it as JSON.
       // We send back the status code and a generic error.
