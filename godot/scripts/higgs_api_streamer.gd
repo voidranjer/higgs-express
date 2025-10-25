@@ -129,7 +129,8 @@ func speak(text_to_speak: String, voice: String):
 	
 	# 2. Make the HTTP Request using HttpClient
 	print("DEBUG: Connecting to host ", TTS_HOST, ":", TTS_PORT)
-	var tls_options = TLSOptions.client_unsafe()
+	var tls_options = TLSOptions.client_unsafe() # HTTPS / TLS
+	#var tls_options = null # HTTP
 	var error = http_client.connect_to_host(TTS_HOST, TTS_PORT, tls_options)
 	if error != OK:
 		print_rich("[color=red]Could not connect to host.[/color]")
